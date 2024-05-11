@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=914, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Slider</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="row" style="height: 100px;">
+            <div class="col-4" style="background-color: #DDDDDD;"></div>
+            <div class="col-1" style="width: 19px;"></div>
+            <div class="col-7" style="background-color: #DDDDDD;"></div>
+        </div>
+    </header>
+
+    <div class="row">
+        <div class="col-8" style="height: 200px; margin-top: 60px;">
+            <div class="slider-row-top">
+                <img class="slider-image" src="Assets/slider-image-1.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-2.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-3.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-4.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-5.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-6.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-7.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-8.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-9.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6" style="height: 200px; margin-top: 10px;">
+            <div class="slider-row-bottom">
+                <img class="slider-image" src="Assets/slider-image-6.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-7.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-8.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-9.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-1.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-2.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-3.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-4.jpg" alt="">
+                <img class="slider-image" src="Assets/slider-image-5.jpg" alt="">
+            </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-1">
+            <div class="button-container">
+                <div class="top-button" onmouseover="changeImageLeft('arrow-blue-left.png')"
+                    onmouseout="changeImageBackLeft()">
+                    <img class="slider-button-left" src="Assets/arrow-gray-left.png" alt="">
+                </div>
+                <div class="bottom-button" onmouseover="changeImageRight('arrow-blue-right.png')"
+                    onmouseout="changeImageBackRight()">
+                    <img class="slider-button-right" src="Assets/arrow-gray-right.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="row" style="height: 100px; background-color: #DDDDDD;"></div>
+    </footer>
+
+    <script>
+        function changeImageLeft(imageName) {
+            $('.slider-button-left').attr('src', 'Assets/' + imageName);
+        }
+        function changeImageBackLeft() {
+            $('.slider-button-left').attr('src', 'Assets/arrow-gray-left.png');
+        }
+
+        function changeImageRight(imageName) {
+            $('.slider-button-right').attr('src', 'Assets/' + imageName);
+        }
+        function changeImageBackRight() {
+            $('.slider-button-right').attr('src', 'Assets/arrow-gray-right.png');
+        }
+
+        $(document).ready(function () {
+
+            const sliderWrapperTop = $('.slider-row-top');
+            const imagesTop = $('.slider-row-top img');
+            const sliderWrapperBottom = $('.slider-row-bottom');
+            const imagesBottom = $('.slider-row-bottom img');
+            const prevBtn = $('.top-button');
+            const nextBtn = $('.bottom-button');
+
+            nextBtn.on('click', function () {
+                const lastImageTop = $('.slider-row-top img:last-child');
+                const imageWidthTop = lastImageTop.width();
+                lastImageTop.clone(true).prependTo(sliderWrapperTop);
+                sliderWrapperTop.animate({ scrollLeft: '+=' + imageWidthTop }, 500, function () {
+                    sliderWrapperTop.find('img:last-child').remove();
+                    sliderWrapperTop.scrollLeft(0);
+                });
+
+                const lastImageBottom = $('.slider-row-bottom img:last-child');
+                const imageWidthBottom = lastImageBottom.width();
+                lastImageBottom.clone(true).prependTo(sliderWrapperBottom);
+                sliderWrapperBottom.animate({ scrollLeft: '+=' + imageWidthBottom }, 500, function () {
+                    sliderWrapperBottom.find('img:last-child').remove();
+                    sliderWrapperBottom.scrollLeft(0);
+                });
+            });
+
+
+
+            prevBtn.on('click', function () {
+                const firstImageTop = $('.slider-row-top img:first-child');
+                const imageWidthTop = firstImageTop.width();
+                firstImageTop.clone(true).appendTo(sliderWrapperTop);
+                sliderWrapperTop.animate({ scrollLeft: '-=' + imageWidthTop }, 500, function () {
+                    sliderWrapperTop.find('img:first-child').remove();
+                    sliderWrapperTop.scrollLeft(0);
+                });
+
+                const firstImageBottom = $('.slider-row-bottom img:first-child');
+                const imageWidthBottom = firstImageBottom.width();
+                firstImageBottom.clone(true).appendTo(sliderWrapperBottom);
+                sliderWrapperBottom.animate({ scrollLeft: '-=' + imageWidthBottom }, 500, function () {
+                    sliderWrapperBottom.find('img:first-child').remove();
+                    sliderWrapperBottom.scrollLeft(0);
+                });
+            });
+
+        })
+    </script>
+
+</body>
+
+</html>
