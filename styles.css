@@ -77,6 +77,17 @@ body {
   margin-top: -155px;
 }
 
+.slider-wrapper {
+  display: flex;
+  overflow: hidden;
+  transition: transform 0.5s ease;
+}
+
+.slider-wrapper img {
+  flex-shrink: 0;
+  width: 100%;
+}
+
 .button-container {
   display: flex;
   flex-direction: column;
